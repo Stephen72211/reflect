@@ -7,6 +7,14 @@
 <title>Insert title here</title>
 </head>
 <body>
+<style>
+	body
+	{
+		background-color:#b0c4de;
+	}
+</style>
+
+
 	<form action="addStudent"  method="post">
 		<table>
 			Type: <input type="text" name="type"/><br>
@@ -19,5 +27,6 @@
 			<input type="submit" value="Submit" />
 		</table>
 	</form>	
+
 </body>
 </html>

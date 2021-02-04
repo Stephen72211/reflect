@@ -9,7 +9,7 @@
 </head>
 <body>
 	<br><br><br>
-	<table border="1" cellspacing="0">
+	<table border="1" cellspadding="10" cellspacing="0">
 		<tr align="center">
 			<th>FlowId</th>	
 			<th>Type</th>
@@ -18,6 +18,7 @@
 			<th>StudentName</th>
 			<th>Location</th>
 			<th>Grade</th>
+			<th>DELETE</th>
 		</tr>	
 		
 			<c:forEach items="${requestScope.students}" var="stu">
@@ -29,6 +30,7 @@
 					<td>${stu.getStudent_name()}</td>
 					<td>${stu.getLocation()}</td>
 					<td>${stu.getGrade()}</td>
+					<td><a href="deleteStudent?flowId=${stu.getFlow_id()}">Delete</a></td>
 				</tr>
 			</c:forEach>
 	</table>

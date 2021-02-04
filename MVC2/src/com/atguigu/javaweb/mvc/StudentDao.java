@@ -1,43 +1,100 @@
 package com.atguigu.javaweb.mvc;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.atguigu.javaweb.Dao.DaoTest;
+
 public class StudentDao {
+	
+	DaoTest daoTest = new DaoTest();
+	Connection connection = null;
+	PreparedStatement preparedStatement = null;
+	
+	public void delete(Integer flowId){
+		
+		String sql = "DELETE FROM examstudent WHERE flow_id = ?";
+		try {
+			connection = daoTest.getConnection();
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, flowId);
+			preparedStatement.executeUpdate();
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void addStudent(Student student){
+		
+
+	
+		
+		Integer type;
+		String id_card;
+		String exam_card;
+		String student_name;
+		String location;
+		Integer grade;
+		
+		
+		type = student.getType();
+		id_card = student.getId_card();
+		exam_card = student.getExam_card();
+		student_name = student.getStudent_name();
+		location = student.getLocation();
+		grade = student.getGrade();
+		
+		String sql = "INSERT INTO examstudent(type,id_card,exam_card,student_name,Location,Grade) "
+				+ "VALUES(?,?,?,?,?,?)";
+		
+		
+
+		 try {
+			 connection = daoTest.getConnection();
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, type);
+			preparedStatement.setString(2, id_card);
+			preparedStatement.setString(3, exam_card);
+			preparedStatement.setString(4, student_name);
+			preparedStatement.setString(5, location);
+			preparedStatement.setInt(6, grade);
+			
+			preparedStatement.executeUpdate();
+	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			if(connection != null){
+				daoTest.releaseConnection(connection);
+			}
+			
+		}
+
+	}
 
 	
 	public List<Student> getAll(){
 		
 		List<Student>  students= new ArrayList<Student>();
-		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
+		 
+		DaoTest daoTest  = new DaoTest();
 		
 		try {
-			
-			String driverClass= "com.mysql.jdbc.Driver";
-			
-			String url = "jdbc:mysql://192.168.3.26:3306/ajax";
-			String user = "root";
-			String password = "1230";
-			
-			Class.forName(driverClass);
-			
-			connection = DriverManager.getConnection(url, user, password);
+			connection = daoTest.getConnection();
 			
 			String sql = "SELECT flow_id, type, id_card, exam_card, student_name, location, grade "
 					+ "FROM examstudent";
-			
 			preparedStatement = connection.prepareStatement(sql);
-			
 			resultSet = preparedStatement.executeQuery();
-			
-			
 			
 			while(resultSet.next()){
 
@@ -54,36 +111,16 @@ public class StudentDao {
 				students.add(student);
 			}
 			
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			try {
-				if(resultSet != null){
-					resultSet.close();
-				}
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-			
-			try {
-				if(preparedStatement != null){
-					preparedStatement.close();
-				}
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-			
-			try {
-				if(connection != null){
-					connection.close();
-				}
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-
+			daoTest.releaseConnection(connection);
 		}
-		
+
 		return students;
+
 	}
 	
 }

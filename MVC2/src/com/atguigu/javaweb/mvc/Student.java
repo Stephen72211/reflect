@@ -67,6 +67,16 @@ public class Student {
 	public Student() {
 		
 	}
+	public Student(Integer type, String id_card, String exam_card, String student_name, String location,
+			Integer grade) {
+		
+		this.type = type;
+		this.id_card = id_card;
+		this.exam_card = exam_card;
+		this.student_name = student_name;
+		this.location = location;
+		this.grade = grade;
+	}
 	
 	
 }

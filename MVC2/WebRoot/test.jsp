@@ -6,6 +6,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+	body
+	{
+		background-color:#b0c4de;
+	}
+</style>
 <body>
 
 	<a href="listAllStudent">List All Student</a>
@@ -14,4 +20,4 @@
 		<br><br>
 	<a href="testXML">testXML</a>
 </body>
-</html>
+</html>;
